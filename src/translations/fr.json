@@ -1,0 +1,36 @@
+{
+  "Login": {
+    "validations": {
+      "email": {
+        "format": "Veuillez saisir une adresse mail valide",
+        "required": "Ce champ est obligatoire"
+      },
+      "password": {
+        "required": "Ce champ est obligatoire"
+      }
+    },
+    "errors": {
+      "credentials": "Les identifiants sont incorrects"
+    },
+    "title": "Qweazier",
+    "subtitle": "Connectez-vous pour créer vos quizz\n et les partager",
+    "text": "Connectez-vous",
+    "labels": {
+      "email": "Adresse email",
+      "password": "Mot de passe"
+    },
+    "cta": {
+      "login": "Se connecter"
+    },
+    "register": {
+      "text": "Pas encore de compte ? Créez le votre ",
+      "link": "ici"
+    }
+  },
+  "Header": {
+    "logo": "Qweazier",
+    "login": "Se connecter",
+    "create": "Créer",
+    "myAccount": "Mon compte"
+  }
+}
