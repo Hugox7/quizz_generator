@@ -18,7 +18,7 @@ function PrivateRoute({ component: Component, ...rest }) {
       }}/>
     );
   } else {
-    return <Redirect to={routes.home.path} />; // TODO
+    return <Redirect to={routes.home.path} />;
   }
 }
 

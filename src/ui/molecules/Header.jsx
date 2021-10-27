@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import { AppBar, Box, Button, Typography, useTheme } from '@mui/material';
 import { ArrowDropDown } from '@mui/icons-material';
@@ -6,8 +6,9 @@ import { makeStyles } from '@mui/styles';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import routes from '../../routing/routes';
-import { useDispatch } from 'react-redux';
-import { initializeAuthThunk, logoutAction } from '../../redux/actions/authActions';
+import Avatar from '../atoms/Avatar';
+import HeaderMenu from '../_features/HeaderMenu';
+import CreateQuizzDialog from '../_features/CreateQuizzDialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,19 +33,24 @@ const useStyles = makeStyles((theme) => ({
 
 function Header({ isAuthenticated, user }) {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const theme = useTheme();
 
-  // TODO to be removed
-  const handleLogout = () => {
-    dispatch(logoutAction());
-    dispatch(initializeAuthThunk());
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
   };
 
   return (
     <AppBar className={classes.root} position="static" color="primary">
       <Box display="flex" alignItems="center" justifyContent="space-between" height="100%" width="100%">
-        <Box pl="20px">
+        <Box
+          pl="20px"
+          component={Link}
+          to={routes.home.path}
+          style={{ textDecoration: 'none', color: theme.palette.common.white }}
+        >
           <Typography variant="h2">
             <FormattedMessage id="Header.logo" />
           </Typography>
@@ -52,15 +58,17 @@ function Header({ isAuthenticated, user }) {
         <Box pr="20px">
           {isAuthenticated ? (
             <Box display="flex" alignItems="center">
-              <Button component={Link} to="#" variant="contained" className={classes.button}>
+              <Button onClick={() => setOpen(true)} variant="contained" className={classes.button}>
                 <FormattedMessage id="Header.create" />
               </Button>
-              <Box ml="20px">
+              <Box ml="20px" mr="18px">
                 {/* TODO atom button */}
-                <Button className={classes.buttonText} endIcon={<ArrowDropDown />} onClick={handleLogout}>
+                <Button className={classes.buttonText} endIcon={<ArrowDropDown />} onClick={(e) => setAnchorEl(e.currentTarget)}>
                   <FormattedMessage id="Header.myAccount" />
                 </Button>
               </Box>
+              <Avatar user={user} size="small" />
+              {open && <CreateQuizzDialog open={open} handleClose={() => setOpen(false)} />}
             </Box>
           ) : (
             <>
@@ -72,6 +80,12 @@ function Header({ isAuthenticated, user }) {
           )}
         </Box>
       </Box>
+      <HeaderMenu
+        onClose={handleCloseMenu}
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
+        setAnchorEl={setAnchorEl}
+      />
     </AppBar>
   );
 }

@@ -1,4 +1,17 @@
 {
+  "Common": {
+    "quizzTypes": "{type, select, art {Art} litterature {Littérature} gaming {Gaming} health {Santé} movies {Cinéma} food {Cuisine} finance {Finance} other {Autre} }"
+  },
+  "Header": {
+    "logo": "Qweazier",
+    "login": "Se connecter",
+    "create": "Créer",
+    "myAccount": "Mon compte",
+    "Menu": {
+      "logout": "Se déconnecter",
+      "myProfile": "Mon profil"
+    }
+  },
   "Login": {
     "validations": {
       "email": {
@@ -10,7 +23,8 @@
       }
     },
     "errors": {
-      "credentials": "Les identifiants sont incorrects"
+      "credentials": "Les identifiants sont incorrects",
+      "error500": "Erreur lors de la tentative de connnexion, veuillez réessayer plus tard"
     },
     "title": "Qweazier",
     "subtitle": "Connectez-vous pour créer vos quizz\n et les partager",
@@ -27,10 +41,58 @@
       "link": "ici"
     }
   },
-  "Header": {
-    "logo": "Qweazier",
-    "login": "Se connecter",
-    "create": "Créer",
-    "myAccount": "Mon compte"
+  "CreateQuizzDialog": {
+    "title": "Créer un quizz",
+    "validation": "Ce champ est obligatoire",
+    "submit": {
+      "success": "Quizz créé avec succès",
+      "failed": "Erreur lors de la création du quizz, veuillez réessayer plus tard"
+    },
+    "labels": {
+      "name": "Nom",
+      "description": "Description",
+      "type": "Thème"
+    },
+    "cta": {
+      "continue": "Continuer",
+      "cancel": "Annuler"
+    }
+  },
+  "Register": {
+    "title": "Qweazier",
+    "subtitle": "Inscrivez-vous pour créer vos quizz\n et les partager",
+    "labels": {
+      "name": "Nom",
+      "email": "Adresse email",
+      "password": "Mot de passe"
+    },
+    "cta": {
+      "register": "S'inscrire"
+    },
+    "validations": {
+      "name": {
+        "min": "Le nom doit comporter trois caractères minimum",
+        "required": "Ce champ est obligatoire"
+      },
+      "email": {
+        "format": "Veuillez saisir une adresse mail valide",
+        "required": "Ce champ est obligatoire"
+      },
+      "password": {
+        "matches": "Le mot de passe doit comporter 8 caractères minimum ainsi qu'une lettre et un chiffre",
+        "required": "Ce champ est obligatoire"
+      }
+    },
+    "login": {
+      "text": "Déjà un compte ? Connectez-vous ",
+      "link": "ici"
+    },
+    "toast": {
+      "success": "Merci pour votre inscription, veuillez vous connecter avec vos identifiants",
+      "failed": {
+        "error500": "Erreur lors de la tentative d'inscription, veuillez rééssayer plus tard",
+        "error403": "L'email renseigné est déjà utilisé"
+      }
+    }
   }
 }

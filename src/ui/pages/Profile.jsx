@@ -1,12 +1,12 @@
 import React from 'react';
 import { Box } from '@mui/material';
 
-function Home() {
+function Profile() {
   return (
     <Box p="20px">
-      home
+      profile
     </Box>
   );
 }
 
-export default Home;
+export default Profile;

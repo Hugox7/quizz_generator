@@ -1,12 +1,12 @@
 import React from 'react';
 import { Box } from '@mui/material';
 
-function Home() {
+function CreateQuizz() {
   return (
     <Box p="20px">
-      home
+      Create Quizz
     </Box>
   );
 }
 
-export default Home;
+export default CreateQuizz;

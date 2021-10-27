@@ -14,6 +14,18 @@ const AUTH_ROUTES = {
       isPrivate: false,
       exact: false,
   },
+  profile: {
+    name: 'profile',
+    path: '/profile',
+    isPrivate: true,
+    exact: false,
+  },
+  createQuizz: {
+    name: 'createQuizz',
+    path: '/create-quizz/:quizzId',
+    isPrivate: true,
+    exact: false,
+  },
 };
 
 // app routes

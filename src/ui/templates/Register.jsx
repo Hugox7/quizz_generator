@@ -1,12 +1,12 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import { makeStyles } from '@mui/styles';
 import { Box, Button, CircularProgress, FormControl, FormHelperText, FormLabel, Typography, useTheme } from '@mui/material';
 import CenteredBox from '../molecules/CenteredBox';
+import { FormattedMessage } from 'react-intl';
 import Input from '../atoms/Input';
 import { Link } from 'react-router-dom';
 import routes from '../../routing/routes';
+import { makeStyles } from '@mui/styles';
 
 const useLabelStyles = makeStyles((theme) => ({
   focused: {
@@ -26,10 +26,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function LoginTemplate({ form, loading }) {
+function RegisterTemplate({ form, loading }) {
+  const theme = useTheme();
   const labelClasses = useLabelStyles();
   const classes = useStyles();
-  const theme = useTheme();
 
   return (
     <CenteredBox>
@@ -37,20 +37,37 @@ function LoginTemplate({ form, loading }) {
 
         <Box textAlign="center" mb="10px">
           <Typography variant="h1" color={theme.palette.primary.main}>
-            <FormattedMessage id="Login.title"/>
+            <FormattedMessage id="Register.title"/>
           </Typography>
         </Box>
 
         <Box whiteSpace="pre-wrap" textAlign="center" mb="10px" >
           <Typography variant="body1">
-            <FormattedMessage id="Login.subtitle"/>
+            <FormattedMessage id="Register.subtitle"/>
           </Typography>
         </Box>
 
         <form onSubmit={form.handleSubmit} method="post">
           <FormControl required fullWidth margin="normal">
+            <FormLabel classes={labelClasses} htmlFor="name">
+              <FormattedMessage id="Register.labels.name" />
+            </FormLabel>
+            <Input
+              fullWidth
+              value={form.values.name}
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              name="name"
+            />
+          </FormControl>
+          {form.errors?.name && form.touched?.name && (
+            <FormHelperText error data-testid="error-email">
+              {form.errors.name}
+            </FormHelperText>
+          )}
+          <FormControl required fullWidth margin="normal">
             <FormLabel classes={labelClasses} htmlFor="email">
-              <FormattedMessage id="Login.labels.email" />
+              <FormattedMessage id="Register.labels.email" />
             </FormLabel>
             <Input
               fullWidth
@@ -67,7 +84,7 @@ function LoginTemplate({ form, loading }) {
           )}
           <FormControl required fullWidth margin="normal">
             <FormLabel classes={labelClasses} htmlFor="password">
-              <FormattedMessage id="Login.labels.password" />
+              <FormattedMessage id="Register.labels.password" />
             </FormLabel>
             <Input
               fullWidth
@@ -85,18 +102,24 @@ function LoginTemplate({ form, loading }) {
           )}
           <Box mt="25px" mb="5px">
             <Typography variant="subtitle">
-              <FormattedMessage id="Login.register.text" />
+              <FormattedMessage id="Register.login.text" />
               <span>
-                <Link to={routes.register.path}><FormattedMessage id="Login.register.link" /></Link>
+                <Link to={routes.login.path}><FormattedMessage id="Register.login.link" /></Link>
               </span>
             </Typography>
           </Box>
           {/* TODO create atoms button and progress */}
-          <Button fullWidth variant="contained" className={classes.button} type="submit" disabled={form.errors?.email || form.errors?.password}>
+          <Button
+            fullWidth
+            variant="contained"
+            className={classes.button}
+            type="submit"
+            disabled={form.errors?.email || form.errors?.password || form.errors?.name}
+          >
             {
               loading
                 ? <CircularProgress size={28} className={classes.progress} />
-                : <FormattedMessage id="Login.cta.login" />
+                : <FormattedMessage id="Register.cta.login" />
               }
           </Button>
         </form>
@@ -106,11 +129,12 @@ function LoginTemplate({ form, loading }) {
   );
 }
 
-LoginTemplate.propTypes = {
+RegisterTemplate.propTypes = {
   form: propTypes.shape({
     handleSubmit: propTypes.func,
     handleChange: propTypes.func,
     values: propTypes.shape({
+      name: propTypes.string,
       email: propTypes.string,
       password: propTypes.string,
     }),
@@ -118,9 +142,9 @@ LoginTemplate.propTypes = {
   loading: propTypes.bool,
 };
 
-LoginTemplate.defaultProps = {
+RegisterTemplate.defaultProps = {
   form: {},
   loading: false,
 };
 
-export default LoginTemplate;
+export default RegisterTemplate;

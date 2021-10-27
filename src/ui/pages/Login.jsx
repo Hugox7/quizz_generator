@@ -7,12 +7,13 @@ import { jwt } from '../../storage/jwt';
 import { useDispatch } from 'react-redux';
 import { initializeAuthThunk } from '../../redux/actions/authActions';
 import LoginTemplate from '../templates/Login';
+import useToast from '../../hooks/useToast';
 
 function Login() {
   const { t } = useTranslate();
   const dispatch = useDispatch();
+  const toast = useToast();
   const [submitting, setSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState(false);
 
   const loginForm = useFormik({
     initialValues: {
@@ -26,20 +27,23 @@ function Login() {
       password: string().required(t('Login.validations.password.required')),
     }),
     onSubmit: async ({ email, password }) => {
-      submitError && setSubmitError(false);
       setSubmitting(true);
       try {
         const { data: userData } = await ApiService.postWithoutJwt('user/login', { email, password });
         jwt.set(userData.token);
         dispatch(initializeAuthThunk());
-      } catch (err) {
-        setSubmitError(true);
+      } catch (error) {
         setSubmitting(false);
+        if (error.response.status === 403) {
+          toast(t('Login.errors.credentials'));
+          return;
+        }
+        toast(t('Login.errors.error500'));
       }
     },
   });
 
-  return <LoginTemplate form={loginForm} error={submitError} loading={submitting} />;
+  return <LoginTemplate form={loginForm} loading={submitting} />;
 }
 
 export default Login;

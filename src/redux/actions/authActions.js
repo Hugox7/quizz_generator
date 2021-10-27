@@ -46,8 +46,8 @@ export function initializeAuthThunk() {
 
     // fetch data
     const userResponse = await ApiService.get('user/me', {});
-    // TODO improve
-    if (userResponse) {
+    // TODO improve ?
+    if (userResponse.data) {
       dispatch({ type: AUTH_ACTIONS.SET_USER, payload: userResponse.data });
     } else {
       dispatch(logoutAction());
