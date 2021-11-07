@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { InputBase, MenuItem, Select, TextField } from '@mui/material';
+import { InputBase, MenuItem, Select } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import clsx from 'clsx';
 
@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '5px !important',
     padding: '10px !important',
     '&.Mui-focused': {
-      borderColor: `${theme.palette.primary.main} !important`,
+      border: `2px solid ${theme.palette.primary.main} !important`,
     },
   },
   small: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Input = React.forwardRef(({ value, onChange, onBlur, fullWidth, name, size, type, text, select, items }, ref) => {
+const Input = React.forwardRef(({ value, onChange, onBlur, fullWidth, name, size, type, text, select, items, readOnly, disabled }, ref) => {
   const classes = useStyles();
 
   const isSmall = 'small' === size;
@@ -73,6 +73,8 @@ const Input = React.forwardRef(({ value, onChange, onBlur, fullWidth, name, size
       name={name}
       type={type}
       classes={inputClasses}
+      readOnly={readOnly}
+      disabled={disabled}
     />
   );
 })
@@ -88,8 +90,10 @@ Input.propTypes = {
   text: propTypes.bool,
   select: propTypes.bool,
   items: propTypes.arrayOf(propTypes.shape({
-
+    // TODO
   })),
+  readOnly: propTypes.bool,
+  disabled: propTypes.bool,
 };
 
 Input.defaultProps = {
@@ -103,6 +107,8 @@ Input.defaultProps = {
   text: false,
   select: false,
   items: [],
+  readOnly: false,
+  disabled: false,
 };
 
 export default Input;

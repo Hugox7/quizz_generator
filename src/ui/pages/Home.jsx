@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 function Home() {
   return (
     <Box p="20px">
-      home
+      Home
     </Box>
   );
 }

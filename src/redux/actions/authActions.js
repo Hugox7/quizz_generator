@@ -1,12 +1,14 @@
 import jwtDecode from "jwt-decode";
 import ApiService from "../../api/apiService";
 import { jwt } from "../../storage/jwt";
+import { refreshToken } from "../../storage/refreshToken";
 import { AUTH_ACTIONS } from "../reducers/authReducer";
 import { currentUserSelector } from "../selectors/authSelectors";
 
 export function logoutAction() {
   return (dispatch) => {
     jwt.remove();
+    refreshToken.remove();
     dispatch({ type: AUTH_ACTIONS.CLEAR });
   };
 }
@@ -29,14 +31,7 @@ export function initializeAuthThunk() {
 
     dispatch({ type: AUTH_ACTIONS.SET_LOADING, payload: true });
 
-    // If token is expired we make sure to clear the localstorage and the store
-    // TODO refresh token ?
     const decodedToken = jwtDecode(token);
-    if (decodedToken.exp < Date.now() / 1000) {
-      dispatch(logoutAction());
-      dispatch({ type: AUTH_ACTIONS.SET_LOADING, payload: false });
-      return;
-    }
 
     if (!decodedToken.publicId) {
       throw new Error('Missing user from JWT token.');

@@ -9,7 +9,6 @@ import Router from './Router';
 import theme from './theme';
 import { ThemeProvider } from '@mui/material/styles';
 import HeaderWithStore from './ui/_features/HeaderWithStore';
-import { Container } from '@mui/material';
 import ToastProvider from './ToastProvider';
 
 const locale = LOCALE.get();

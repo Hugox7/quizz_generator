@@ -1,12 +1,13 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { Box, Button, CircularProgress, FormControl, FormHelperText, FormLabel, Typography, useTheme } from '@mui/material';
+import { Box, FormControl, FormHelperText, FormLabel, Typography, useTheme } from '@mui/material';
 import CenteredBox from '../molecules/CenteredBox';
 import { FormattedMessage } from 'react-intl';
 import Input from '../atoms/Input';
 import { Link } from 'react-router-dom';
 import routes from '../../routing/routes';
 import { makeStyles } from '@mui/styles';
+import Button from '../atoms/Button';
 
 const useLabelStyles = makeStyles((theme) => ({
   focused: {
@@ -14,22 +15,9 @@ const useLabelStyles = makeStyles((theme) => ({
   },
 }));
 
-const useStyles = makeStyles((theme) => ({
-  // TODO create atoms button and progress
-  button: {
-    textTransform: 'unset !important',
-    color: `${theme.palette.common.white} !important`,
-    fontWeight: 'bold !important',
-  },
-  progress: {
-    color: theme.palette.common.white,
-  }
-}));
-
 function RegisterTemplate({ form, loading }) {
   const theme = useTheme();
   const labelClasses = useLabelStyles();
-  const classes = useStyles();
 
   return (
     <CenteredBox>
@@ -108,19 +96,14 @@ function RegisterTemplate({ form, loading }) {
               </span>
             </Typography>
           </Box>
-          {/* TODO create atoms button and progress */}
           <Button
             fullWidth
-            variant="contained"
-            className={classes.button}
+            variant="primary"
             type="submit"
-            disabled={form.errors?.email || form.errors?.password || form.errors?.name}
+            disabled={!!form.errors?.email || !!form.errors?.password || !!form.errors?.name}
+            isLoading={loading}
           >
-            {
-              loading
-                ? <CircularProgress size={28} className={classes.progress} />
-                : <FormattedMessage id="Register.cta.login" />
-              }
+            <FormattedMessage id="Register.cta.register" />
           </Button>
         </form>
 

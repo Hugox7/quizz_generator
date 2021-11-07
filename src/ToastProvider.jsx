@@ -30,7 +30,6 @@ function ToastProvider() {
     return null;
   }
 
-  // TODO atom toast
   return (
     <Snackbar
       open={open}

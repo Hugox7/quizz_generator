@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
-import { AppBar, Box, Button, Typography, useTheme } from '@mui/material';
+import { AppBar, Box, Typography, useTheme } from '@mui/material';
 import { ArrowDropDown } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
 import { FormattedMessage } from 'react-intl';
@@ -9,25 +9,11 @@ import routes from '../../routing/routes';
 import Avatar from '../atoms/Avatar';
 import HeaderMenu from '../_features/HeaderMenu';
 import CreateQuizzDialog from '../_features/CreateQuizzDialog';
+import Button from '../atoms/Button';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     height: `${theme.constants.headerHeight}px`,
-  },
-  button: {
-    // TODO atom button
-    textTransform: 'unset !important',
-    color: `${theme.palette.common.white} !important`,
-    backgroundColor: `${theme.palette.tertiary.main} !important`,
-    boxShadow: 'unset !important',
-    fontWeight: 'bold !important',
-  },
-  buttonText: {
-    // TODO atom button
-    textTransform: 'unset !important',
-    color: `${theme.palette.common.white} !important`,
-    boxShadow: 'unset !important',
-    fontWeight: 'bold !important',
   },
 }));
 
@@ -58,12 +44,11 @@ function Header({ isAuthenticated, user }) {
         <Box pr="20px">
           {isAuthenticated ? (
             <Box display="flex" alignItems="center">
-              <Button onClick={() => setOpen(true)} variant="contained" className={classes.button}>
+              <Button onClick={() => setOpen(true)} variant="secondary">
                 <FormattedMessage id="Header.create" />
               </Button>
               <Box ml="20px" mr="18px">
-                {/* TODO atom button */}
-                <Button className={classes.buttonText} endIcon={<ArrowDropDown />} onClick={(e) => setAnchorEl(e.currentTarget)}>
+                <Button variant="textLight" endIcon={<ArrowDropDown />} onClick={(e) => setAnchorEl(e.currentTarget)}>
                   <FormattedMessage id="Header.myAccount" />
                 </Button>
               </Box>
@@ -72,8 +57,11 @@ function Header({ isAuthenticated, user }) {
             </Box>
           ) : (
             <>
-              {/* TODO atom button */}
-              <Button component={Link} to={routes.login.path} variant="contained" className={classes.button}>
+              <Button
+                variant="secondary"
+                component={Link}
+                to={routes.login.path}
+              >
                 <FormattedMessage id="Header.login" />
               </Button>
             </>

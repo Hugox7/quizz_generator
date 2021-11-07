@@ -2,14 +2,17 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import { isAuthenticatedSelector, isAuthLoadingSelector } from '../../redux/selectors/authSelectors';
+import CenteredCircularProgress from '../../ui/molecules/CenteredCircularProgress';
 import routes from '../routes';
+
+// Route where you must be authenticated
 
 function PrivateRoute({ component: Component, ...rest }) {
   const isAuthenticated = useSelector(isAuthenticatedSelector);
   const isLoading = useSelector(isAuthLoadingSelector);
 
   if (isLoading) {
-    return <p>Loading...</p>; // TODO
+    return <CenteredCircularProgress />;
   }
   if (isAuthenticated) {
     return (

@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { initializeAuthThunk } from '../../redux/actions/authActions';
 import LoginTemplate from '../templates/Login';
 import useToast from '../../hooks/useToast';
+import { refreshToken } from '../../storage/refreshToken';
 
 function Login() {
   const { t } = useTranslate();
@@ -31,6 +32,7 @@ function Login() {
       try {
         const { data: userData } = await ApiService.postWithoutJwt('user/login', { email, password });
         jwt.set(userData.token);
+        refreshToken.set(userData.refreshToken);
         dispatch(initializeAuthThunk());
       } catch (error) {
         setSubmitting(false);

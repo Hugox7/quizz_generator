@@ -1,38 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { useFormik } from 'formik';
-import { Box, Button, Dialog, DialogContent, DialogTitle, FormControl, FormHelperText, FormLabel, TextField } from '@mui/material';
+import { Box, Dialog, DialogContent, DialogTitle, FormControl, FormHelperText, FormLabel } from '@mui/material';
 import { object, string, number } from 'yup';
 import useTranslate from '../../hooks/useTranslate';
 import { FormattedMessage } from 'react-intl';
 import Input from '../atoms/Input';
 import ApiService from '../../api/apiService';
-import { makeStyles } from '@mui/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import useToast from '../../hooks/useToast';
 import { useHistory } from 'react-router-dom';
 import routes from '../../routing/routes';
 import route from '../../utils/route';
-
-const useStyles = makeStyles((theme) => ({
-  // TODO create atoms button and progress
-  button: {
-    textTransform: 'unset !important',
-    color: `${theme.palette.common.white} !important`,
-    fontWeight: 'bold !important',
-  },
-  progress: {
-    color: theme.palette.common.white,
-  }
-}));
+import { useDispatch } from 'react-redux';
+import { setTypesThunk } from '../../redux/actions/typeActions';
+import { useSelector } from 'react-redux';
+import { typesSelector } from '../../redux/selectors/typeSelectors';
+import Button from '../atoms/Button';
 
 function CreateQuizzDialog({ open, handleClose }) {
-  const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
   const { t } = useTranslate();
   const toast = useToast();
 
-  const [types, setTypes] = useState([]);
+  const types = useSelector(typesSelector);
+
+  // const [types, setTypes] = useState([]);
   const [submitting, setSubmitting] = useState(false);
 
   const {
@@ -71,12 +65,8 @@ function CreateQuizzDialog({ open, handleClose }) {
   });
 
   useEffect(() => {
-    async function fetchTypes() {
-      const { data: types } = await ApiService.get('/type');
-      setTypes(types);
-    }
-    fetchTypes();
-  }, []);
+    dispatch(setTypesThunk());
+  }, [dispatch]);
 
   const selectItems = types.map(({ id, name }) => ({ id, name: t('Common.quizzTypes', { type: name }) }));
 
@@ -149,9 +139,8 @@ function CreateQuizzDialog({ open, handleClose }) {
               {errors.type}
             </FormHelperText>
           )}
-          {/* TODO create atoms button and progress */}
           <Box mt="20px" display= "flex" justifyContent="flex-end">
-            <Button fullWidth variant="contained" className={classes.button} type="submit" disabled={isDisabled}>
+            <Button fullWidth variant="primary" type="submit" disabled={isDisabled} isLoading={submitting}>
               <FormattedMessage id="CreateQuizzDialog.cta.continue" />
             </Button>
           </Box>

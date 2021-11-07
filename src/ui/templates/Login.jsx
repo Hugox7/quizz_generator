@@ -2,11 +2,12 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@mui/styles';
-import { Box, Button, CircularProgress, FormControl, FormHelperText, FormLabel, Typography, useTheme } from '@mui/material';
+import { Box, FormControl, FormHelperText, FormLabel, Typography, useTheme } from '@mui/material';
 import CenteredBox from '../molecules/CenteredBox';
 import Input from '../atoms/Input';
 import { Link } from 'react-router-dom';
 import routes from '../../routing/routes';
+import Button from '../atoms/Button';
 
 const useLabelStyles = makeStyles((theme) => ({
   focused: {
@@ -14,21 +15,8 @@ const useLabelStyles = makeStyles((theme) => ({
   },
 }));
 
-const useStyles = makeStyles((theme) => ({
-  // TODO create atoms button and progress
-  button: {
-    textTransform: 'unset !important',
-    color: `${theme.palette.common.white} !important`,
-    fontWeight: 'bold !important',
-  },
-  progress: {
-    color: theme.palette.common.white,
-  }
-}));
-
 function LoginTemplate({ form, loading }) {
   const labelClasses = useLabelStyles();
-  const classes = useStyles();
   const theme = useTheme();
 
   return (
@@ -87,17 +75,20 @@ function LoginTemplate({ form, loading }) {
             <Typography variant="subtitle">
               <FormattedMessage id="Login.register.text" />
               <span>
-                <Link to={routes.register.path}><FormattedMessage id="Login.register.link" /></Link>
+                <Link to={routes.register.path}>
+                  <FormattedMessage id="Login.register.link" />
+                </Link>
               </span>
             </Typography>
           </Box>
-          {/* TODO create atoms button and progress */}
-          <Button fullWidth variant="contained" className={classes.button} type="submit" disabled={form.errors?.email || form.errors?.password}>
-            {
-              loading
-                ? <CircularProgress size={28} className={classes.progress} />
-                : <FormattedMessage id="Login.cta.login" />
-              }
+          <Button
+            fullWidth
+            variant="primary"
+            type="submit"
+            disabled={!!form.errors?.email || !!form.errors?.password}
+            isLoading={loading}
+          >
+            <FormattedMessage id="Login.cta.login" />
           </Button>
         </form>
 

@@ -1,6 +1,11 @@
 {
   "Common": {
-    "quizzTypes": "{type, select, art {Art} litterature {Littérature} gaming {Gaming} health {Santé} movies {Cinéma} food {Cuisine} finance {Finance} other {Autre} }"
+    "quizzTypes": "{type, select, art {Art} litterature {Littérature} gaming {Gaming} health {Santé} movies {Cinéma} food {Cuisine} finance {Finance} other {Autre} }",
+    "quizzStatus": {
+       "draft": "Brouillon",
+       "active": "Actif",
+       "archived": "Archivé"
+    }
   },
   "Header": {
     "logo": "Qweazier",
@@ -56,6 +61,41 @@
     "cta": {
       "continue": "Continuer",
       "cancel": "Annuler"
+    }
+  },
+  "Profile": {
+    "validations": {
+      "name": {
+        "min": "Le nom doit comporter trois caractères minimum",
+        "required": "Ce champ est obligatoire"
+      }
+    },
+    "toast": {
+      "success": "Profil mis à jour avec succès",
+      "failed": "Impossible de modifier votre profil"
+    },
+    "pic": {
+      "add": "Ajouter une photo",
+      "update": "Modifier la photo"
+    },
+    "upload": {
+      "warning": "La photo doit être au format jpg, jpeg ou png et ne doit pas dépasser 1 mo ",
+      "success": "Photo de profil modifiée avec succès",
+      "failed": "Impossible d'uploader la photo. Le problème vient peut-être du format ou de la taille du fichier"
+    },
+    "edit": {
+      "name": "Nom",
+      "email": "Adresse email",
+      "bio": "Biographie",
+      "update": "Enregistrer",
+      "cancel": "Annuler"
+    },
+    "readOnly": {
+      "name": "Nom",
+      "bio": "Biographie",
+      "mail": "Adresse email",
+      "createdAt": "Date d'inscription",
+      "update": "Editer"
     }
   },
   "Register": {

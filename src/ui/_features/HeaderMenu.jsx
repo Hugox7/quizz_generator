@@ -40,7 +40,7 @@ function HeaderMenu({ open, onClose, anchorEl, setAnchorEl }) {
 HeaderMenu.propTypes = {
   open: propTypes.bool,
   onClose: propTypes.func,
-  anchorEl: propTypes.node,
+  anchorEl: propTypes.object,
   setAnchorEl: propTypes.func,
 };
 

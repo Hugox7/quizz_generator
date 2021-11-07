@@ -22,7 +22,7 @@ const AUTH_ROUTES = {
   },
   createQuizz: {
     name: 'createQuizz',
-    path: '/create-quizz/:quizzId',
+    path: '/create-quizz/:id',
     isPrivate: true,
     exact: false,
   },

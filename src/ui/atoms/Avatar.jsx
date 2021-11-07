@@ -45,7 +45,7 @@ function Avatar({ user, size, src }) {
 
   if (!user.profilePic) {
 
-    const initial = user.name.substring(0, 1).toUpperCase();
+    const initial = user?.name?.substring(0, 1).toUpperCase();
 
     return (
     <MuiAvatar className={avatarClasses} sx={{ bgcolor: avatarColors[user.color] }}>
