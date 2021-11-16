@@ -46,6 +46,31 @@
       "link": "ici"
     }
   },
+  "CreateQuizz": {
+    "header": {
+      "back": "Retour",
+      "publish": "Publier"
+    },
+    "dialog": {
+      "titleAdd": "Ajouter une question",
+      "titleUpdate": "Modifier une question",
+      "addOption": "Ajouter une option",
+      "validations": {
+        "question": {
+          "required": "Ce champ est obligatoire"
+        }
+      },
+      "labels": {
+        "question": "Question",
+        "option": "Option",
+        "eligible": "Eligible"
+      }
+    },
+    "addFirstQuestion": "Ajoutez votre première question",
+    "cta": {
+      "add": "Ajouter"
+    }
+  },
   "CreateQuizzDialog": {
     "title": "Créer un quizz",
     "validation": "Ce champ est obligatoire",

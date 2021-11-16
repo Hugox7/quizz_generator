@@ -41,6 +41,10 @@ const theme = createTheme({
       fontWeight: 600,
       lineHeight: '20px',
     },
+    bodyTitle: {
+      fontSize: '24px',
+      fontWeight: 400,
+    },
     h1: {
       fontFamily: 'Kaushan Script',
       fontSize: '45px',

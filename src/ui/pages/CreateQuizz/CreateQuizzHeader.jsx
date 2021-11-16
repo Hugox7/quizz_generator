@@ -1,45 +1,43 @@
 import React from 'react';
-import propTypes from 'prop-types';
 import { Box, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useTheme } from '@mui/styles';
 import Button from '../../atoms/Button';
 import { Link } from 'react-router-dom';
 import QuizzStatusTag from './QuizzStatusTag';
+import useCreateQuizzContext from './useCreateQuizzContext';
+import { FormattedMessage } from 'react-intl';
 
-function CreateQuizzHeader({ quizz }) {
+function CreateQuizzHeader() {
   const theme = useTheme();
+  const { quizz } = useCreateQuizzContext();
 
   return (
     <Box
       height="90px"
-      borderBottom={`1px solid ${theme.palette.neutral.secondary}`}
       display="flex"
       justifyContent="space-between"
       alignItems="center"
       px="20px"
+      boxShadow="0px 2px 10px rgba(75, 50, 138, 0.07)"
+      mb="40px"
     >
       <Box display="flex" alignItems="center">
-        {/* TODO */}
-        <Button component={Link} to='#' startIcon={<ArrowBackIcon />} variant="outlined">
-          {/* TODO */}
-          Retour
+        <Button variant="outlined" startIcon={<ArrowBackIcon />}>
+          <FormattedMessage id="CreateQuizz.header.back" />
         </Button>
-        <Box ml="10px">
+        <Box mx="20px">
           <Typography variant="bodyBold">
             {quizz.name}
           </Typography>
-          <QuizzStatusTag quizz={quizz} />
         </Box>
+        <QuizzStatusTag quizz={quizz} />
       </Box>
+      <Button disabled={!quizz.QuizzQuestions?.length}>
+        <FormattedMessage id="CreateQuizz.header.publish" />
+      </Button>
     </Box>
   );
 }
-
-CreateQuizzHeader.propTypes = {
-  quizz: propTypes.shape({
-    name: propTypes.string,
-  }).isRequired,
-};
 
 export default CreateQuizzHeader;

@@ -11,7 +11,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import useToast from '../../hooks/useToast';
 import { useHistory } from 'react-router-dom';
 import routes from '../../routing/routes';
-import route from '../../utils/route';
+import { routeWithParams } from '../../utils/route';
 import { useDispatch } from 'react-redux';
 import { setTypesThunk } from '../../redux/actions/typeActions';
 import { useSelector } from 'react-redux';
@@ -54,7 +54,7 @@ function CreateQuizzDialog({ open, handleClose }) {
       setSubmitting(true);
       try {
         const { data: quizzCreated } = await ApiService.post('/quizz', { name, description, type });
-        history.push(route(routes.createQuizz.path, quizzCreated.publicId));
+        history.push(routeWithParams(routes.createQuizz.path, { id: quizzCreated.publicId }));
         handleClose();
         toast(t('CreateQuizzDialog.submit.success'), 'success');
       } catch {
@@ -85,7 +85,11 @@ function CreateQuizzDialog({ open, handleClose }) {
       <DialogTitle>
         <Box height="100%" width="100%" display="flex" alignItems="center" justifyContent="space-between">
           <FormattedMessage id="CreateQuizzDialog.title" />
-          <CloseIcon style={{ cursor: 'pointer' }} onClick={() => handleClose()} />
+          <CloseIcon style={{ cursor: 'pointer' }} onClick={() => {
+              handleClose();
+              resetForm();
+            }}
+          />
         </Box>
       </DialogTitle>
       <DialogContent>

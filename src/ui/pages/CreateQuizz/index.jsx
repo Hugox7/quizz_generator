@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -6,7 +6,10 @@ import { fetchQuizzThunk } from '../../../redux/actions/quizzActions';
 import { useSelector } from 'react-redux';
 import { currentQuizzSelector, isQuizzLoadingSelector } from '../../../redux/selectors/quizzSelectors';
 import CenteredCircularProgress from '../../molecules/CenteredCircularProgress';
-import CreateQuizzHeader from './CreateQuizzHeader';
+import CreateQuizzTemplate from './CreateQuizzTemplate';
+import CreateQuizzContext from './Context';
+import { useFormik } from 'formik';
+import { object, string, array, number } from 'yup';
 
 function CreateQuizz() {
   const dispatch = useDispatch();
@@ -14,6 +17,8 @@ function CreateQuizz() {
 
   const quizz = useSelector(currentQuizzSelector);
   const isLoading = useSelector(isQuizzLoadingSelector);
+
+  const [isDialogOpen, setDialogOpen] = useState(false);
 
   useEffect(() => {
     dispatch(fetchQuizzThunk(id));
@@ -28,9 +33,18 @@ function CreateQuizz() {
     return 'no quizz';
   }
 
+  const contextValue = {
+    quizz,
+    isDialogOpen,
+    setDialogOpen,
+    isCreateQuizzContext: true,
+  }
+
   return (
     <Box>
-      <CreateQuizzHeader quizz={quizz} />
+      <CreateQuizzContext.Provider value={contextValue}>
+        <CreateQuizzTemplate />
+      </CreateQuizzContext.Provider>
     </Box>
   );
 }

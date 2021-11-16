@@ -27,6 +27,7 @@ function QuizzStatusTag({ quizz }) {
 
   return (
     <Chip
+      size="small"
       label={t(trad)}
       color={color}
     />
